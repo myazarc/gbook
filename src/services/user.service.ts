@@ -1,7 +1,7 @@
 import { UserRepository } from "../database/repository/user.repository";
 import { UserRegisterDto } from "../dto/user/user.register.dto";
 import { FieldExistError } from "../utils/errors/field.exist.error";
-import { classToClassFromExist, plainToClass, plainToInstance } from "class-transformer";
+import { plainToClass } from "class-transformer";
 import { UserModel } from "../database/models/user.entity";
 import { UserLoginDto } from "../dto/user/user.login.dto";
 import { NotAuthorizedError } from "../utils/errors/not.authorized.error";
