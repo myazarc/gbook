@@ -17,8 +17,8 @@ export class Server {
   }
 
   appStart() {
-    this.expressApp.app.listen(process.env.APP_PORT || 3000, () => {
-      console.log(`Server started on port ${process.env.APP_PORT || 3000}`);
+    this.expressApp.app.listen(process.env.USER_SERVICE_PORT || 3000, () => {
+      console.log(`Server started on port ${process.env.USER_SERVICE_PORT || 3000}`);
     });
   }
 
