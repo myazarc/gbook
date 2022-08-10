@@ -1,4 +1,4 @@
-import { UserModel } from "../models/user.entity";
+import { UserModel } from "../models/user.model";
 import { GenericRepository } from "./generic.repository";
 import { IUserRepository } from "./interfaces/iuser.repository";
 
