@@ -1,4 +1,5 @@
 import express from "express";
+import { errorResponder } from "./middlewares/error.responder";
 import routes from "./routes";
 export class ExpressApp {
   app = express();
@@ -15,5 +16,6 @@ export class ExpressApp {
 
   setRoutes() {
     this.app.use("/", routes);
+    this.app.use(errorResponder);
   }
 }
