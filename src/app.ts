@@ -1,6 +1,6 @@
 import express from "express";
 import { errorResponder } from "./middlewares/error.responder";
-import routes from "./routes";
+import { protectedRouter, publicRouter } from "./routes";
 export class ExpressApp {
   app = express();
 
@@ -15,7 +15,8 @@ export class ExpressApp {
   }
 
   setRoutes() {
-    this.app.use("/", routes);
+    this.app.use("/", publicRouter);
+    this.app.use("/", protectedRouter);
     this.app.use(errorResponder);
   }
 }
