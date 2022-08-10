@@ -10,7 +10,6 @@ export function errorResponder(error: AppError, request: Request, response: Resp
   } catch (e) {
     data = error.message;
   }
-  console.log(error);
   const responseService = new ResponseService();
   responseService.setError(data);
   const status = error.statusCode || 400;
