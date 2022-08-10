@@ -1,5 +1,5 @@
 import DotenvFlow from "dotenv-flow";
-DotenvFlow.config({ path: "./envs" });
+DotenvFlow.config({ path: "../envs" });
 import "reflect-metadata";
 import { ExpressApp } from "./app";
 import sequelize from "./database";
