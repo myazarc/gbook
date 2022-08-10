@@ -3,8 +3,8 @@ import { validate } from "class-validator";
 import { BadRequestError } from "./errors/bad.request.error";
 
 export async function validator(body: any, dto: any): Promise<any> {
-  const a = plainToInstance(dto, body);
-  const errors = await validate(a);
+  const instance = plainToInstance(dto, body);
+  const errors = await validate(instance);
   if (errors.length) {
     const error = errors.map((e) => {
       {
@@ -16,4 +16,5 @@ export async function validator(body: any, dto: any): Promise<any> {
     });
     throw new BadRequestError(JSON.stringify(error));
   }
+  return instance;
 }

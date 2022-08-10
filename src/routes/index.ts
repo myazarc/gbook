@@ -1,14 +1,9 @@
-import { NextFunction, Request, Response, Router } from "express";
-import { validator } from "../utils/validator";
+import { Router } from "express";
+import { UserController } from "../controllers/user.controller";
 
 const router = Router();
+const userController = new UserController();
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    return res.status(200).json({});
-  } catch (error) {
-    next(error);
-  }
-});
+router.post("/register", userController.register);
 
 export default router;

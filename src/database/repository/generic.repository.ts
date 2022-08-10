@@ -1,5 +1,5 @@
 import { Model, ModelCtor } from "sequelize-typescript";
-import { IGenericRepository } from "./IGenericRepository";
+import { IGenericRepository } from "./interfaces/igeneric.repository";
 
 export abstract class GenericRepository<M extends Model> implements IGenericRepository<M> {
   protected model: ModelCtor<M>;
@@ -16,7 +16,7 @@ export abstract class GenericRepository<M extends Model> implements IGenericRepo
     return this.model.findOne(params);
   }
   create(entity: M): Promise<M> {
-    return this.model.create(entity as any);
+    return entity.save();
   }
   update(id: number, entity: M): Promise<any> {
     return this.model.update(entity, { id } as any);
