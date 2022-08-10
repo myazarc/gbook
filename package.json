@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "@types/md5": "^2.3.2",
     "@types/urlencode": "^1.1.2",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
@@ -35,7 +36,9 @@
     "dotenv-flow": "^3.2.0",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "mysql2": "^2.3.3",
+    "redis": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.21.3",
     "sequelize-typescript": "^2.1.3",

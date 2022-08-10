@@ -4,4 +4,5 @@ export class BookSearchResponseDto {
   currentPage: number;
   pageCount: number;
   items: any[];
+  fromRedis: boolean;
 }
