@@ -31,6 +31,19 @@ export class BookmarkService {
     }
   }
 
+  async getBookmarks(user: any): Promise<any> {
+    return this.bookmarkRepository.findAll({ where: { userId: user.userId } });
+  }
+
+  async removeBookmark(id: string, user: any): Promise<any> {
+    const bookmark = await this.bookmarkRepository.findOne({ where: { gBookId: id, userId: user.userId } });
+    if (bookmark) {
+      return this.bookmarkRepository.delete(bookmark.id);
+    } else {
+      throw new NotFoundError("Bookmark not found, id: " + id);
+    }
+  }
+
   private async getBook(id: string): Promise<any> {
     return await this.gBookService.getBook(id);
   }

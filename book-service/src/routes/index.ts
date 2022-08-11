@@ -12,6 +12,8 @@ publicRouter.get("/search", bookController.search);
 const protectedRouter = Router();
 
 protectedRouter.use(auth);
-protectedRouter.post("/bookmark/add/:id", bookmarkController.add);
+protectedRouter.post("/bookmark/:id", bookmarkController.add);
+protectedRouter.get("/bookmarks", bookmarkController.getBookmarks);
+protectedRouter.delete("/bookmark/:id", bookmarkController.remove);
 
 export { publicRouter, protectedRouter };
