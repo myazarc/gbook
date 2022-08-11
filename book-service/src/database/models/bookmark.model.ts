@@ -43,10 +43,5 @@ export class BookmarkModel extends Model {
   @Column({
     type: "varchar(255)",
   })
-  subject: string;
-
-  @Column({
-    type: "varchar(255)",
-  })
   publisher: string;
 }
