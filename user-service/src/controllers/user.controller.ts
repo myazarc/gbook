@@ -1,4 +1,5 @@
 import { NextFunction, Response, Request } from "express";
+import { UserLoginDto } from "../dto/user/user.login.dto";
 import { UserRegisterDto } from "../dto/user/user.register.dto";
 import { UserService } from "../services/user.service";
 import { FieldExistError } from "../utils/errors/field.exist.error";
@@ -29,7 +30,8 @@ export class UserController {
   doLogin = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     const response = new ResponseService();
     try {
-      const userResult = await this.userService.doLogin(req.body);
+      const userDto = await validator(req.body, UserLoginDto);
+      const userResult = await this.userService.doLogin(userDto);
       const token = jwtSign(userResult.id, userResult.email);
       response.setData({ access_token: token });
       return res.status(200).json(response.getResponse());

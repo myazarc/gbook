@@ -4,7 +4,7 @@ import "reflect-metadata";
 import { ExpressApp } from "./app";
 import sequelize from "./database";
 
-export class Server {
+class Server {
   expressApp: ExpressApp;
   constructor() {
     this.expressApp = new ExpressApp();
@@ -33,3 +33,5 @@ export class Server {
 
 const server = new Server();
 server.run();
+
+export { server };
