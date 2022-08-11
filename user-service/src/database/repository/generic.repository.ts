@@ -19,9 +19,9 @@ export abstract class GenericRepository<M extends Model> implements IGenericRepo
     return entity.save();
   }
   update(id: number, entity: M): Promise<any> {
-    return this.model.update(entity, { id } as any);
+    return this.model.update(entity, { where: { id } } as any);
   }
   delete(id: number): Promise<number> {
-    return this.model.destroy({ id } as any);
+    return this.model.destroy({ where: { id } } as any);
   }
 }
