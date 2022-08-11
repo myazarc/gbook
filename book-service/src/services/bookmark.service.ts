@@ -1,15 +1,19 @@
 import { nextTick } from "process";
 import { BookmarkModel } from "../database/models/bookmark.model";
 import { BookmarkRepository } from "../database/repository/bookmark.repositoy";
+import { BookmarkElasticListDto } from "../dto/book/bookmark.elastic.list.dto";
 import { BookmarkListDto } from "../dto/book/bookmark.list.dto";
 import { BookmarkListResponseDto } from "../dto/book/bookmark.list.response.dto";
 import { FieldExistError } from "../utils/errors/field.exist.error";
 import { NotFoundError } from "../utils/errors/not.found.error";
+import { ElasticSearchService, getElasticSearchService } from "./elasticsearch.service";
 import { GBookService } from "./gbook.service";
 
 export class BookmarkService {
   protected readonly bookmarkRepository: BookmarkRepository = new BookmarkRepository();
   protected readonly gBookService: GBookService = new GBookService();
+
+  protected readonly elasticService: ElasticSearchService = getElasticSearchService();
 
   async addBookmark(id: string, user: any): Promise<any> {
     const gBookData = await this.getBook(id);
@@ -27,7 +31,9 @@ export class BookmarkService {
       bookmark.publisher = gBookData.volumeInfo.publisher;
       bookmark.isbn = gBookData.volumeInfo.industryIdentifiers[0].identifier;
 
-      return this.bookmarkRepository.create(bookmark);
+      const bookmarkResult = await this.bookmarkRepository.create(bookmark);
+      await this.elasticService.addBookmark(bookmarkResult.id, bookmark);
+      return bookmarkResult;
     } else {
       throw new NotFoundError("Book id not found, id: " + id);
     }
@@ -35,7 +41,7 @@ export class BookmarkService {
 
   async getBookmarks(user: any, bookmarkList: BookmarkListDto): Promise<BookmarkListResponseDto> {
     const pagination = {
-      page: 0,
+      page: 1,
       maxResults: 10,
     };
 
@@ -61,9 +67,15 @@ export class BookmarkService {
     return response;
   }
 
+  async getBookmarkWithElastic(user: any, bookmarkList: BookmarkElasticListDto) {
+    const bookmarks = await this.elasticService.search(user.userId, bookmarkList);
+    return bookmarks;
+  }
+
   async removeBookmark(id: string, user: any): Promise<any> {
     const bookmark = await this.bookmarkRepository.findOne({ where: { gBookId: id, userId: user.userId } });
     if (bookmark) {
+      await this.elasticService.deleteBookmark(bookmark.id);
       return this.bookmarkRepository.delete(bookmark.id);
     } else {
       throw new NotFoundError("Bookmark not found, id: " + id);

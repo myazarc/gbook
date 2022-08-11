@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "@elastic/elasticsearch": "7.0.0",
     "@types/urlencode": "^1.1.2",
     "axios": "^0.27.2",
     "class-transformer": "^0.5.1",

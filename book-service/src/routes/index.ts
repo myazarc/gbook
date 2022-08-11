@@ -15,5 +15,6 @@ protectedRouter.use(auth);
 protectedRouter.post("/bookmark/:id", bookmarkController.add);
 protectedRouter.get("/bookmarks", bookmarkController.getBookmarks);
 protectedRouter.delete("/bookmark/:id", bookmarkController.remove);
+protectedRouter.get("/bookmarks/elastic", bookmarkController.getBookmarksWithElastic);
 
 export { publicRouter, protectedRouter };
