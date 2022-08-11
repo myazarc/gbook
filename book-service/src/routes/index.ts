@@ -11,8 +11,8 @@ const bookController = new BookController();
 const bookmarkController = new BookmarkController();
 
 publicRouter.get("/search", bookController.search);
-publicRouter.get("/login", proxy(proxyBaseUrl + "/login"));
-publicRouter.get("/register", proxy(proxyBaseUrl + "/register"));
+publicRouter.post("/login", proxy(proxyBaseUrl + "/login"));
+publicRouter.post("/register", proxy(proxyBaseUrl + "/register"));
 
 const protectedRouter = Router();
 

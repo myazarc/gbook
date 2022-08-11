@@ -1,6 +1,6 @@
 import { Model, Table, Column, ForeignKey, Index } from "sequelize-typescript";
 
-@Table({ tableName: "bookmarks", paranoid: true })
+@Table({ tableName: "bookmarks", paranoid: true, charset: "utf8mb4", collate: "utf8mb4_unicode_ci" })
 export class BookmarkModel extends Model {
   @Column({
     references: {

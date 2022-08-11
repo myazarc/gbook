@@ -14,7 +14,7 @@ export class UserController {
     try {
       const userDto = await validator(req.body, UserRegisterDto);
       const userResult = await this.userService.register(userDto);
-      response.setData(userResult);
+      response.setData(null);
       return res.status(200).json(response.getResponse());
     } catch (err) {
       if (err instanceof FieldExistError) {
