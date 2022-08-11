@@ -1,6 +1,8 @@
 import { nextTick } from "process";
 import { BookmarkModel } from "../database/models/bookmark.model";
 import { BookmarkRepository } from "../database/repository/bookmark.repositoy";
+import { BookmarkListDto } from "../dto/book/bookmark.list.dto";
+import { BookmarkListResponseDto } from "../dto/book/bookmark.list.response.dto";
 import { FieldExistError } from "../utils/errors/field.exist.error";
 import { NotFoundError } from "../utils/errors/not.found.error";
 import { GBookService } from "./gbook.service";
@@ -31,8 +33,32 @@ export class BookmarkService {
     }
   }
 
-  async getBookmarks(user: any): Promise<any> {
-    return this.bookmarkRepository.findAll({ where: { userId: user.userId } });
+  async getBookmarks(user: any, bookmarkList: BookmarkListDto): Promise<BookmarkListResponseDto> {
+    const pagination = {
+      page: 0,
+      maxResults: 10,
+    };
+
+    if (bookmarkList.page) {
+      pagination.page = bookmarkList.page;
+    }
+    if (bookmarkList.maxResults) {
+      pagination.maxResults = bookmarkList.maxResults;
+    }
+
+    const offset = (pagination.page - 1) * pagination.maxResults;
+
+    const bookmarks = await this.bookmarkRepository.findByWithPagination(user.userId, offset, pagination.maxResults);
+    const totalItems = await this.bookmarkRepository.count(user.userId);
+
+    const response = new BookmarkListResponseDto();
+    response.items = bookmarks;
+    response.totalItems = totalItems;
+    response.currentPage = pagination.page;
+    response.maxResults = pagination.maxResults;
+    response.pageCount = Math.ceil(totalItems / pagination.maxResults);
+
+    return response;
   }
 
   async removeBookmark(id: string, user: any): Promise<any> {
