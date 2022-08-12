@@ -15,8 +15,7 @@ export class ExpressApp {
   }
 
   setRoutes() {
-    this.app.use("/", publicRouter);
-    this.app.use("/", protectedRouter);
+    this.app.use("/", publicRouter, protectedRouter);
     this.app.use(errorResponder);
   }
 }

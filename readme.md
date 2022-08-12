@@ -101,7 +101,7 @@ Projede **Bearer token** ile authorization sağlanmaktadır.
 - Bookmark Add servisi ile; Search servisinden elde edilen id gönderilerek kullanıcı bazlı bookmarka eklenebilir.
 - Bookmark Remove servisi ile eklenen kitap bookmarktan çıkarılabilir.
 - Bookmark List servisi ile kullanıcınıza ait tüm bookmarkları görebilirsiniz.
-- Bookmark Search ile bookmarkınıza eklediğiniz kitapları elastic search üzerinden arama yapabilirsiniz. Arama Fieldleri: title,author,keywords
+- Bookmark Search ile bookmarkınıza eklediğiniz kitapları elasticsearch üzerinden arama yapabilirsiniz. Arama Fieldleri: title,author,keywords
 
 ## Proje Endpoint Bilgileri
 
@@ -114,6 +114,8 @@ Projede **Bearer token** ile authorization sağlanmaktadır.
 | `DELETE` | /bookmark/:googleBookId | Evet          | Bookmarktan kitap kaldırma servisi        |
 | `GET`    | /bookmarks              | Evet          | Bookmarkınızı görüntüleme servisi         |
 | `GET`    | /bookmarks/elastic      | Evet          | Bookmarktaki kitaplarınızda arama servisi |
+
+Tüm istekler `json` olarak gönderilmelidir.
 
 ### Response Yapısı
 

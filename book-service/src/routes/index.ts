@@ -16,10 +16,9 @@ publicRouter.post("/register", proxy(proxyBaseUrl + "/register"));
 
 const protectedRouter = Router();
 
-protectedRouter.use(auth);
-protectedRouter.post("/bookmark/:id", bookmarkController.add);
-protectedRouter.get("/bookmarks", bookmarkController.getBookmarks);
-protectedRouter.delete("/bookmark/:id", bookmarkController.remove);
-protectedRouter.get("/bookmarks/elastic", bookmarkController.getBookmarksWithElastic);
+protectedRouter.post("/bookmark/:id", auth, bookmarkController.add);
+protectedRouter.get("/bookmarks", auth, bookmarkController.getBookmarks);
+protectedRouter.delete("/bookmark/:id", auth, bookmarkController.remove);
+protectedRouter.get("/bookmarks/elastic", auth, bookmarkController.getBookmarksWithElastic);
 
 export { publicRouter, protectedRouter };

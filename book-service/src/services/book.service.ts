@@ -42,7 +42,7 @@ export class BookService {
     bookPageResult.fromRedis = false;
 
     if (books.items.length > 0) {
-      await redisService.set(redisKey, JSON.stringify(bookPageResult), 30);
+      await redisService.set(redisKey, JSON.stringify(bookPageResult), 30 * 60);
     }
     return bookPageResult;
   }
