@@ -43,6 +43,5 @@ export class BookSearchDto {
 
   @IsOptional()
   @IsNumberString()
-  @Max(40)
   maxResults: number;
 }

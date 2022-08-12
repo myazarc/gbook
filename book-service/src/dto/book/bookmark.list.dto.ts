@@ -7,6 +7,5 @@ export class BookmarkListDto {
 
   @IsOptional()
   @IsNumberString()
-  @Max(40)
   maxResults: number;
 }
